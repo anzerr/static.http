@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = {
+const data = {
 	'application/andrew-inset': ['ez'],
 	'application/applixware': ['aw'],
 	'application/atom+xml': ['atom'],
@@ -787,3 +787,16 @@ module.exports = {
 	'video/x-smv': ['smv'],
 	'x-conference/x-cooltalk': ['ice']
 };
+
+const map = {
+	encode: data,
+	extension: {}
+};
+
+for (let i in data) {
+	for (let x in data[i]) {
+		map.extension[data[i][x]] = i;
+	}
+}
+
+module.exports = map;
