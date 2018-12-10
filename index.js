@@ -1,4 +1,4 @@
-const Server = require('./server.js'),
+const Server = require('./src/server.js'),
 	fs = require('fs'),
 	util = require('util');
 
@@ -6,8 +6,8 @@ const json = false;
 
 let $ = new Server(Number(process.argv[2] || 3000), process.argv[3] || __dirname);
 $.create((req, res) => {
-	if (req.method === 'GET') {
-		let dir = $.resolve(req.url);
+	if (req.method() === 'GET') {
+		let dir = $.resolveFiles(req.url());
 		console.log(dir);
 		util.promisify(fs.stat)(dir).then((stat) => {
 			if (stat.isDirectory()) {
@@ -19,7 +19,7 @@ $.create((req, res) => {
 				if (json) {
 					return res.status(200).json(list);
 				}
-				return $.jsonToHtml(req.url, list, res);
+				return $.jsonToHtml(req.url(), list, res);
 			}
 			return res.status(200).pipe(list);
 		}).catch((e) => {
@@ -27,8 +27,8 @@ $.create((req, res) => {
 			res.status(404).send('');
 		});
 	} else {
-		res.status(403).send('');
+		res.status(200).send('');
 	}
 }).then(() => {
-	console.log('http server listening to port', $.port);
+	console.log('http server listening to port', $.port, $.director);
 });

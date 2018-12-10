@@ -1,17 +1,16 @@
-const http = require('http'),
+const {Server} = require('http.server'),
 	url = require('url'),
-	path = require('path'),
-	Response = require('./response.js');
+	path = require('path');
 
-class Server {
+class Static {
 
 	constructor(port, director) {
 		this.port = Number(port);
 		this.director = director;
-		this.handle = [];
+		this._server = new Server(this.port);
 	}
 
-	resolve(u) {
+	resolveFiles(u) {
 		const sanitizePath = path.normalize(url.parse(u).pathname).replace(/^(\.\.[\/\\])+/, '');
 		return path.join(this.director, sanitizePath);
 	}
@@ -28,15 +27,9 @@ class Server {
 	}
 
 	create(cd) {
-		return new Promise((resolve) => {
-			let server = this.handle.push(http.createServer((req, res) => {
-				return cd(req, new Response(res));
-			}).listen(this.port, () => {
-				resolve(server);
-			}));
-		});
+		return this._server.create(cd);
 	}
 
 }
 
-module.exports = Server;
+module.exports = Static;

@@ -9,6 +9,9 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
+    "dependencies": {
+        "http.server": "git+ssh://git@github.com:anzerr/http.server.git"
+    },
     "eslintConfig": {
         "extends": "eslint-config-basic"
     },
