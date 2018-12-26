@@ -1,22 +1,39 @@
 {
-    "name": "static.http",
-    "version": "1.0.0",
-    "description": "",
-    "main": "src/index.js",
-    "scripts": {
-        "start": "node src/index.js"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "http.server": "git+ssh://git@github.com:anzerr/http.server.git"
-    },
-    "eslintConfig": {
-        "extends": "eslint-config-basic"
-    },
-    "devDependencies": {
-        "eslint": "^5.6.1",
-        "eslint-config-basic": "git+ssh://git@github.com/anzerr/eslintrc.git"
-    }
+	"name": "static.http",
+	"version": "1.0.0",
+	"description": "",
+	"main": "src/index.js",
+	"scripts": {
+		"start": "node src/bin.js --port 3000 --cwd ."
+	},
+	"keywords": [],
+	"author": "anzerr",
+	"license": "ISC",
+	"dependencies": {
+		"cli.util": "git+ssh://git@github.com/anzerr/cli.util.git",
+		"fs.promisify": "git+ssh://git@github.com/anzerr/fs.promisify.git",
+		"http.server": "git+ssh://git@github.com:anzerr/http.server.git"
+	},
+	"eslintConfig": {
+		"extends": "eslint-config-basic"
+	},
+	"devDependencies": {
+		"eslint": "^5.6.1",
+		"eslint-config-basic": "git+ssh://git@github.com/anzerr/eslintrc.git"
+	},
+	"bin": {
+		"staticserver": "./src/bin.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/anzerr/static.http.git"
+	},
+	"engines": {
+		"node": ">= 0.10.0"
+	},
+	"types": "src/index.d.ts",
+	"bugs": {
+		"url": "https://github.com/anzerr/static.http/issues"
+	},
+	"homepage": "https://github.com/anzerr/static.http#readme"
 }
