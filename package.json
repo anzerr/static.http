@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "src/index.js",
 	"scripts": {
-		"start": "node src/bin.js --port 3000 --cwd ."
+		"start": "node src/bin.js --port 3000 --type html --cwd ."
 	},
 	"keywords": [],
 	"author": "anzerr",

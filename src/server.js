@@ -1,23 +1,44 @@
 const Static = require('./static.js'),
+	path = require('path'),
 	fs = require('fs.promisify');
 
 class StaticServer extends require('events') {
 
-	constructor(port, director, json) {
+	constructor(port, director, type) {
 		super();
-		this.json = json;
+		this.type = type || null;
 		this.static = new Static(port, director);
+	}
+
+	async director(req, res, dir) {
+		if (this.type === 'json') {
+			let list = await fs.readdir(dir);
+			return res.status(200).json(list);
+		}
+		if (this.type === 'html') {
+			let list = await fs.readdir(dir);
+			return res.status(200).set({
+				'Content-Type': res.type('html')
+			}).send(this.static.draw(req.url(), list));
+		}
+		if (this.type) {
+			dir = this.normalize(path.join(req.url(), this.type));
+			if ((await fs.stat(dir))) {
+				return res.status(200).pipe(fs.createReadStream(dir));
+			}
+		}
+		return res.status(404).send('');
 	}
 
 	create() {
 		return this.static.create(async (req, res) => {
 			if (req.method() === 'GET') {
+				this.emit('log', req.url());
 				try {
 					let dir = this.static.normalize(req.url());
 					this.emit('log', dir);
 					if ((await fs.stat(dir)).isDirectory()) {
-						let list = await fs.readdir(dir);
-						return (this.json) ? res.status(200).json(list) : this.static.draw(req.url(), list, res);
+						return this.director(req, res, dir);
 					}
 					res.status(200).pipe(fs.createReadStream(dir));
 				} catch (e) {

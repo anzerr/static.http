@@ -21,7 +21,8 @@ staticserver --port 8080 --cwd ..
 
 ``` javascript
 const Server = require('static.http');
-new Server(5996, __dirname)
+const type = ['json', 'html', 'index.html'];
+new Server(5996, __dirname, type[1])
 	.on('log', console.log)
 	.create().then(() => {
 		console.log('Server started');
