@@ -4,11 +4,11 @@ Simple file explorer in NodeJS with zero dependencies
 
 #### `Install`
 ``` bash
-npm install --save git+ssh://git@github.com/anzerr/static.http.git
+npm install --save git+http://git@github.com/anzerr/static.http.git
 ```
 
 ``` bash
-git clone git+ssh://git@github.com/anzerr/static.http.git &&
+git clone git+http://git@github.com/anzerr/static.http.git &&
 cd static.http &&
 npm link
 ```

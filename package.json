@@ -10,8 +10,8 @@
 	"author": "anzerr",
 	"license": "ISC",
 	"dependencies": {
-		"cli.util": "git+ssh://git@github.com/anzerr/cli.util.git",
-		"fs.promisify": "git+ssh://git@github.com/anzerr/fs.promisify.git",
+		"cli.util": "git+http://git@github.com/anzerr/cli.util.git",
+		"fs.promisify": "git+http://git@github.com/anzerr/fs.promisify.git",
 		"http.server": "git+ssh://git@github.com:anzerr/http.server.git"
 	},
 	"eslintConfig": {
@@ -19,7 +19,7 @@
 	},
 	"devDependencies": {
 		"eslint": "^5.6.1",
-		"eslint-config-basic": "git+ssh://git@github.com/anzerr/eslintrc.git"
+		"eslint-config-basic": "git+http://git@github.com/anzerr/eslintrc.git"
 	},
 	"bin": {
 		"staticserver": "./src/bin.js"
