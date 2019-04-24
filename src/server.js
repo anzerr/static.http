@@ -16,9 +16,9 @@ class StaticServer extends require('events') {
 			return res.status(200).json(list);
 		}
 		if (this.type === 'html') {
-			let list = await fs.readdir(dir);
+			let list = await fs.readdir(dir), context = res.type(path.extname(dir) || 'html', res.type('html'));
 			return res.status(200).set({
-				'Content-Type': res.type(path.extname(dir), res.type('html'))
+				'Content-Type': context
 			}).send(this.static.draw(req.url(), list));
 		}
 		if (this.type) {
@@ -34,22 +34,27 @@ class StaticServer extends require('events') {
 
 	create() {
 		return this.static.create(async (req, res) => {
-			if (req.method() === 'GET') {
-				this.emit('log', req.url());
-				try {
-					let dir = this.static.normalize(req.url());
-					this.emit('log', dir);
-					if ((await fs.stat(dir)).isDirectory()) {
-						return this.director(req, res, dir);
-					}
-					res.status(200).pipe(fs.createReadStream(dir));
-				} catch (e) {
-					this.emit('log', e);
-					res.status(404).send('');
+			let dir = this.static.normalize(req.url());
+			return Promise.resolve().then(() => {
+				if (req.method() === 'GET') {
+					this.emit('log', req.url());
+					return fs.stat(dir);
 				}
-			} else {
-				res.status(200).send('');
-			}
+			}).then((stat) => {
+				if (!stat) {
+					return res.status(200).send('');
+				}
+				this.emit('log', dir);
+				if (stat.isDirectory()) {
+					return this.director(req, res, dir);
+				}
+				res.status(200).set({
+					'Content-Type': res.type(path.extname(dir))
+				}).pipe(fs.createReadStream(dir));
+			}).catch((e) => {
+				this.emit('log', e);
+				res.status(404).send('');
+			});
 		}).then(() => {
 			this.emit('log', 'http server listening to port', this.static.port, this.static.director);
 		});
