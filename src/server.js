@@ -15,7 +15,7 @@ class StaticServer extends require('events') {
 			let list = await fs.readdir(dir);
 			return res.status(200).json(list);
 		}
-		if (this.type === 'html') {
+		if (this.type === 'html' || this.type === 'raw') {
 			let list = await fs.readdir(dir), context = res.type(path.extname(dir) || 'html', res.type('html'));
 			return res.status(200).set({
 				'Content-Type': context
@@ -48,7 +48,10 @@ class StaticServer extends require('events') {
 				if (stat.isDirectory()) {
 					return this.director(req, res, dir);
 				}
-				res.status(200).set({
+				if (this.type === 'raw') {
+					return res.status(200).pipe(fs.createReadStream(dir));
+				}
+				return res.status(200).set({
 					'Content-Type': res.type(path.extname(dir))
 				}).pipe(fs.createReadStream(dir));
 			}).catch((e) => {
