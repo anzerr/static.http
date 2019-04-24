@@ -18,13 +18,15 @@ class StaticServer extends require('events') {
 		if (this.type === 'html') {
 			let list = await fs.readdir(dir);
 			return res.status(200).set({
-				'Content-Type': res.type('html')
+				'Content-Type': res.type(path.extname(dir), res.type('html'))
 			}).send(this.static.draw(req.url(), list));
 		}
 		if (this.type) {
-			dir = this.normalize(path.join(req.url(), this.type));
+			dir = this.static.normalize(path.join(req.url(), this.type));
 			if ((await fs.stat(dir))) {
-				return res.status(200).pipe(fs.createReadStream(dir));
+				return res.status(200).set({
+					'Content-Type': res.type(path.extname(dir))
+				}).pipe(fs.createReadStream(dir));
 			}
 		}
 		return res.status(404).send('');
