@@ -15,18 +15,16 @@ class StaticServer extends require('events') {
 			let list = await fs.readdir(dir);
 			return res.status(200).json(list);
 		}
-		if (this.type === 'html' || this.type === 'raw') {
-			let list = await fs.readdir(dir), context = res.type(path.extname(dir) || 'html', res.type('html'));
+		if (this.type === 'html') {
+			let list = await fs.readdir(dir);
 			return res.status(200).set({
-				'Content-Type': context
+				'Content-Type': res.type('html')
 			}).send(this.static.draw(req.url(), list));
 		}
 		if (this.type) {
-			dir = this.static.normalize(path.join(req.url(), this.type));
+			dir = this.normalize(path.join(req.url(), this.type));
 			if ((await fs.stat(dir))) {
-				return res.status(200).set({
-					'Content-Type': res.type(path.extname(dir))
-				}).pipe(fs.createReadStream(dir));
+				return res.status(200).pipe(fs.createReadStream(dir));
 			}
 		}
 		return res.status(404).send('');
@@ -34,30 +32,22 @@ class StaticServer extends require('events') {
 
 	create() {
 		return this.static.create(async (req, res) => {
-			let dir = this.static.normalize(req.url());
-			return Promise.resolve().then(() => {
-				if (req.method() === 'GET') {
-					this.emit('log', req.url());
-					return fs.stat(dir);
+			if (req.method() === 'GET') {
+				this.emit('log', req.url());
+				try {
+					let dir = this.static.normalize(req.url());
+					this.emit('log', dir);
+					if ((await fs.stat(dir)).isDirectory()) {
+						return this.director(req, res, dir);
+					}
+					res.status(200).pipe(fs.createReadStream(dir));
+				} catch (e) {
+					this.emit('log', e);
+					res.status(404).send('');
 				}
-			}).then((stat) => {
-				if (!stat) {
-					return res.status(200).send('');
-				}
-				this.emit('log', dir);
-				if (stat.isDirectory()) {
-					return this.director(req, res, dir);
-				}
-				if (this.type === 'raw') {
-					return res.status(200).pipe(fs.createReadStream(dir));
-				}
-				return res.status(200).set({
-					'Content-Type': res.type(path.extname(dir))
-				}).pipe(fs.createReadStream(dir));
-			}).catch((e) => {
-				this.emit('log', e);
-				res.status(404).send('');
-			});
+			} else {
+				res.status(200).send('');
+			}
 		}).then(() => {
 			this.emit('log', 'http server listening to port', this.static.port, this.static.director);
 		});

@@ -8,7 +8,7 @@ npm install --save git+https://git@github.com/anzerr/static.http.git
 ```
 
 ``` bash
-git clone https://git@github.com/anzerr/static.http.git &&
+git clone git+https://git@github.com/anzerr/static.http.git &&
 cd static.http &&
 npm link
 ```

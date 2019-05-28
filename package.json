@@ -1,39 +1,38 @@
 {
 	"name": "static.http",
 	"version": "1.0.0",
-	"description": "",
-	"main": "src/index.js",
-	"scripts": {
-		"start": "node src/bin.js --port 3000 --type html --cwd ."
-	},
 	"keywords": [],
-	"author": "anzerr",
-	"license": "ISC",
-	"dependencies": {
-		"cli.util": "git+https://git@github.com/anzerr/cli.util.git",
-		"fs.promisify": "git+https://git@github.com/anzerr/fs.promisify.git",
-		"http.server": "git+https://git@github.com/anzerr/http.server.git"
-	},
-	"eslintConfig": {
-		"extends": "eslint-config-basic"
-	},
-	"devDependencies": {
-		"eslint": "^5.6.1",
-		"eslint-config-basic": "git+https://git@github.com/anzerr/eslintrc.git"
-	},
-	"bin": {
-		"staticserver": "./src/bin.js"
+	"homepage": "https://github.com/anzerr/static.http#readme",
+	"bugs": {
+		"url": "https://github.com/anzerr/static.http/issues"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/anzerr/static.http.git"
 	},
+	"license": "ISC",
+	"author": "anzerr",
+	"main": "src/index.js",
+	"types": "src/index.d.ts",
+	"bin": {
+		"staticserver": "./src/bin.js"
+	},
+	"scripts": {
+		"start": "node src/bin.js --port 3000 --type html --cwd ."
+	},
+	"eslintConfig": {
+		"extends": "eslint-config-basic"
+	},
+	"dependencies": {
+		"cli.util": "git+https://git@github.com/anzerr/cli.util.git",
+		"fs.promisify": "git+https://git@github.com/anzerr/fs.promisify.git",
+		"http.server": "git+https://git@github.com/anzerr/http.server.git"
+	},
+	"devDependencies": {
+		"eslint": "^5.6.1",
+		"eslint-config-basic": "git+https://git@github.com/anzerr/eslintrc.git"
+	},
 	"engines": {
 		"node": ">= 0.10.0"
-	},
-	"types": "src/index.d.ts",
-	"bugs": {
-		"url": "https://github.com/anzerr/static.http/issues"
-	},
-	"homepage": "https://github.com/anzerr/static.http#readme"
+	}
 }
