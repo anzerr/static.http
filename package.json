@@ -8,9 +8,9 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/anzerr/static.http.git"
+		"url": "git@github.com:anzerr/static.http.git"
 	},
-	"license": "ISC",
+	"license": "MIT",
 	"author": "anzerr",
 	"main": "src/index.js",
 	"types": "src/index.d.ts",
@@ -29,7 +29,7 @@
 		"http.server": "git+https://git@github.com/anzerr/http.server.git"
 	},
 	"devDependencies": {
-		"eslint": "^5.6.1",
+		"eslint": "5.11.1",
 		"eslint-config-basic": "git+https://git@github.com/anzerr/eslintrc.git"
 	},
 	"engines": {
