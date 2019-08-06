@@ -4,7 +4,7 @@ Simple file explorer in NodeJS with zero dependencies
 
 #### `Install`
 ``` bash
-npm install --save git+https://git@github.com/anzerr/static.http.git
+npm install --save git+https://github.com/anzerr/static.http.git
 ```
 
 ``` bash
@@ -14,7 +14,6 @@ npm link
 ```
 
 ### `Example`
-
 ``` bash
 staticserver --port 8080 --cwd ..
 ```
