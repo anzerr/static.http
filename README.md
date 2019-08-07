@@ -15,7 +15,6 @@ npm link
 ```
 
 ### `Example`
-
 ``` bash
 staticserver --port 8080 --cwd ..
 ```

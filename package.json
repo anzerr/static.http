@@ -1,6 +1,6 @@
 {
 	"name": "static.http",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"keywords": [],
 	"homepage": "https://github.com/anzerr/static.http#readme",
 	"bugs": {
@@ -29,7 +29,6 @@
 		"http.server": "git+https://git@github.com/anzerr/http.server.git"
 	},
 	"devDependencies": {
-		"eslint": "5.11.1",
 		"eslint-config-basic": "git+https://git@github.com/anzerr/eslintrc.git"
 	},
 	"engines": {
