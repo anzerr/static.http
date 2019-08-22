@@ -1,12 +1,14 @@
+
 const Static = require('./static.js'),
 	path = require('path'),
 	fs = require('fs.promisify');
 
 class StaticServer extends require('events') {
 
-	constructor(port, director, type) {
+	constructor(port, director, type, raw) {
 		super();
 		this.type = type || null;
+		this.raw = raw;
 		this.static = new Static(port, director);
 	}
 
@@ -39,6 +41,11 @@ class StaticServer extends require('events') {
 					this.emit('log', dir);
 					if ((await fs.stat(dir)).isDirectory()) {
 						return this.director(req, res, dir);
+					}
+					if (this.raw) {
+						res.set({
+							'Content-Type': res.type(path.extname(dir))
+						});
 					}
 					res.status(200).pipe(fs.createReadStream(dir));
 				} catch (e) {

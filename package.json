@@ -18,7 +18,8 @@
 		"staticserver": "./src/bin.js"
 	},
 	"scripts": {
-		"start": "node src/bin.js --port 3000 --type html --cwd ."
+		"start": "node src/bin.js --port 3000 --type html --cwd .",
+		"example": "node example/index.js"
 	},
 	"eslintConfig": {
 		"extends": "eslint-config-basic"
