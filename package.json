@@ -1,7 +1,6 @@
 {
 	"name": "static.http",
 	"version": "1.0.7",
-	"keywords": [],
 	"homepage": "https://github.com/anzerr/static.http#readme",
 	"bugs": {
 		"url": "https://github.com/anzerr/static.http/issues"
@@ -19,7 +18,7 @@
 	},
 	"scripts": {
 		"start": "node src/bin.js --port 3000 --type html --cwd .",
-		"example": "node example/index.js"
+		"test": "node example/index.js"
 	},
 	"eslintConfig": {
 		"extends": "eslint-config-basic"

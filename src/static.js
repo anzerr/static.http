@@ -34,6 +34,10 @@ class Static {
 		return this._server.create(cd);
 	}
 
+	close() {
+		this._server.close();
+	}
+
 }
 
 module.exports = Static;

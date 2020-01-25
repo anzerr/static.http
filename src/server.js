@@ -60,6 +60,10 @@ class StaticServer extends require('events') {
 		});
 	}
 
+	close() {
+		this.static.close();
+	}
+
 }
 
 module.exports = StaticServer;

@@ -1,5 +1,7 @@
 
 ### `Intro`
+![GitHub Actions status | publish](https://github.com/anzerr/static.http/workflows/publish/badge.svg)
+
 Simple file explorer in NodeJS with zero dependencies
 
 #### `Install`
