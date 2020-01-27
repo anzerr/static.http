@@ -1,6 +1,14 @@
 {
 	"name": "static.http",
 	"version": "1.0.8",
+	"description": "http server for serving static files",
+	"keywords": [
+		"cli",
+		"http",
+		"nodejs",
+		"static",
+		"util"
+	],
 	"homepage": "https://github.com/anzerr/static.http#readme",
 	"bugs": {
 		"url": "https://github.com/anzerr/static.http/issues"
