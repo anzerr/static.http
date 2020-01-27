@@ -1,6 +1,6 @@
 {
 	"name": "static.http",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"description": "http server for serving static files",
 	"keywords": [
 		"cli",
